@@ -1,6 +1,6 @@
 # CrossStitchCalculator
 
-Java project that takes user input and statistics to predict size, number of thread skeins needed, cost, and time
+Java project that takes user input and statistics to predict size, number of thread skiens needed, cost, and time
 estimated for a cross stitch project.
 
 ## The Problem
@@ -45,7 +45,7 @@ Enter the design height in stitches: 150
 Enter the AIDA fabric count (e.g. 14): 14
 ...
 Finished size: 8.6 in x 10.7 in
-Skeins needed: 6
+Skiens needed: 6
 Estimated cost: $4.50
 ```
 
