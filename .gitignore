@@ -1,0 +1,9 @@
+# IntelliJ IDEA Settings (not part of the program)
+.idea/
+*.iml
+
+#Compiled output (regenerates ever time the program runs)
+out/
+
+#macOS system file
+.DS_Store
