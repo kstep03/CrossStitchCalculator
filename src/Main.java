@@ -52,20 +52,37 @@ public class Main {
                 continue;
             }
 
-            if (!(aidaCount == 6 || aidaCount == 8 || aidaCount == 14 || aidaCount == 16 || (aidaCount > 17 && aidaCount < 23))) {
+            if (!(aidaCount == 6 || aidaCount == 8 || aidaCount == 11 || aidaCount == 14 || aidaCount == 16 || (aidaCount > 17 && aidaCount < 23))) {
                 IO.println("AIDA count " + aidaCount + " is not an accepted count of fabric. Choose a different AIDA count size.");
                 continue;
             }
             break;
         }
 
-        int totalArea = width * height;
         double widthInches = (double) width / aidaCount;
         double heightInches = (double) height / aidaCount;
 
-
-
         IO.println("Your finished project size is: " + String.format("%.2f", widthInches) + " x " + String.format("%.2f", heightInches) + " inches");
+
+        int totalAreaStitches = width * height;
+        int skeinsForStitches = 0;
+        if (aidaCount > 18) {
+            skeinsForStitches = 2300;
+        } else if (aidaCount == 16) {
+            skeinsForStitches = 2000;
+        } else if (aidaCount == 14) {
+            skeinsForStitches = 1700;
+        } else if (aidaCount == 11) {
+            skeinsForStitches = 1500;
+        } else {
+            skeinsForStitches = 1300;
+        }
+
+        int totalSkeins = (int) Math.ceil((double)totalAreaStitches / skeinsForStitches);
+            //rounds up to nearest whole number
+
+
+        IO.println("Number of skeins of thread needed: " + totalSkeins);
     }
 
 }
