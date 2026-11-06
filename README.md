@@ -40,13 +40,14 @@ git clone https://github.com/YOUR-USERNAME/CrossStitchCalculator.git
 - Type your answer and press Enter for each prompt. Example of the run console listed below.
 
 ```bash
-Enter the design width in stitches: 120
-Enter the design height in stitches: 150
-Enter the AIDA fabric count (e.g. 14): 14
+Enter width of project (in counts): 120
+Enter height of project (in counts): 150
+Enter AIDA count of fabric: 14
 ...
-Finished size: 8.6 in x 10.7 in
-Skiens needed: 6
-Estimated cost: $4.50
+Your finished project size is:  8.62 x 10.71 inches
+Total estimated cost of project: $4.50
+Number of skeins of thread needed: 2
+Your finished fabric size needed is: 13.62 x 15.71 inches 
 ```
 
 ## Roadmap

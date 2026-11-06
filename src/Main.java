@@ -111,7 +111,7 @@ public class Main {
         double costOfFabric = 15.00;
         //find more efficient way to have the user input price or compare other sizes, but for now just constant
         double totalCost = (costOfFabric + (costSkein * totalSkeins));
-        IO.println("Total cost of project: $" + String.format("%.2f", totalCost));
+        IO.println("Total estimated cost of project: $" + String.format("%.2f", totalCost));
 
 
         //buffer variable
