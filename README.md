@@ -35,7 +35,7 @@ git clone https://github.com/YOUR-USERNAME/CrossStitchCalculator.git
 ## Usage
 
 - In the Project panel, open src/Main.java.
-- Click the green Run arrow next to main.
+- Click the green Run arrow next to Main.
 - The program will begin by asking you for input in the Run console at the bottom of the window. 
 - Type your answer and press Enter for each prompt. Example of the run console listed below.
 
