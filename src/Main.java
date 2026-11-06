@@ -65,7 +65,6 @@ public class Main {
         double widthInches = (double) width / aidaCount;
         double heightInches = (double) height / aidaCount;
 
-        IO.println("Your finished project size is: " + String.format("%.2f", widthInches) + " x " + String.format("%.2f", heightInches) + " inches");
 
         int totalAreaStitches = width * height;
         int skeinsForStitches = 0;
@@ -83,9 +82,6 @@ public class Main {
 
         int totalSkeins = (int) Math.ceil((double) totalAreaStitches / skeinsForStitches);
         //rounds up to nearest whole number
-
-
-        IO.println("Number of skeins of thread needed: " + totalSkeins);
 
 
         double costSkein = 0.84;
@@ -111,7 +107,6 @@ public class Main {
         double costOfFabric = 15.00;
         //find more efficient way to have the user input price or compare other sizes, but for now just constant
         double totalCost = (costOfFabric + (costSkein * totalSkeins));
-        IO.println("Total estimated cost of project: $" + String.format("%.2f", totalCost));
 
 
         //buffer variable
@@ -136,7 +131,9 @@ public class Main {
         }
 
 
-
-        IO.println("Your finished fabric size needed is: " + String.format("%.2f", (widthInches + bufferVariable)) + " x " +  String.format("%.2f", (heightInches + bufferVariable)) + " inches");
+        IO.println("Finished project size: " + String.format("%.2f", widthInches) + " x " + String.format("%.2f", heightInches) + " inches");
+        IO.println("Size of fabric needed: " + String.format("%.2f", (widthInches + bufferVariable)) + " x " + String.format("%.2f", (heightInches + bufferVariable)) + " inches");
+        IO.println("Skeins of thread needed: " + totalSkeins);
+        IO.println("Total estimated cost: $" + String.format("%.2f", totalCost));
     }
 }
