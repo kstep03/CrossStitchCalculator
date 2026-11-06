@@ -3,13 +3,13 @@ public class Main {
         IO.println("Hello! Welcome to Cross Stitch Calculator!");
 
         int width = 0;
-        while(true) {
+        while (true) {
             IO.println("Enter width of project (in counts): ");
             String originalWidth = IO.readln();
 
             try {
                 width = Integer.parseInt(originalWidth);
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 IO.println("Not an amount.");
                 continue;
             }
@@ -22,13 +22,13 @@ public class Main {
         }
 
         int height = 0;
-        while(true) {
+        while (true) {
             IO.println("Enter height of project (in counts): ");
             String originalHeight = IO.readln();
 
             try {
                 height = Integer.parseInt(originalHeight);
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 IO.println("Not an amount.");
                 continue;
             }
@@ -41,13 +41,13 @@ public class Main {
         }
 
         int aidaCount = 0;
-        while(true) {
+        while (true) {
             IO.println("Enter AIDA count of fabric: ");
             String origAidaCount = IO.readln();
 
             try {
                 aidaCount = Integer.parseInt(origAidaCount);
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 IO.println("Not an amount.");
                 continue;
             }
@@ -78,11 +78,38 @@ public class Main {
             skeinsForStitches = 1300;
         }
 
-        int totalSkeins = (int) Math.ceil((double)totalAreaStitches / skeinsForStitches);
-            //rounds up to nearest whole number
+        int totalSkeins = (int) Math.ceil((double) totalAreaStitches / skeinsForStitches);
+        //rounds up to nearest whole number
 
 
         IO.println("Number of skeins of thread needed: " + totalSkeins);
+
+
+        double costSkein = 0.84;
+        IO.println("Do you have a specific price of thread that you want to input? (yes/no)");
+        String answerPrice = IO.readln();
+        String lowerAnswerPrice = answerPrice.toLowerCase();
+        if (lowerAnswerPrice.equals("yes")) {
+            while (true) {
+                IO.println("Enter price per skein: ");
+                String origAidaCount = IO.readln();
+
+                try {
+                    costSkein = Double.parseDouble(origAidaCount);
+                } catch (NumberFormatException e) {
+                    IO.println("Not an amount.");
+                    continue;
+                }
+
+                break;
+            }
+        }
+
+        double costOfFabric = 15.00;
+            //find more efficient way to have the user input price or compare other sizes, but for now just constant
+        double totalCost = (costOfFabric + (costSkein * totalSkeins));
+        IO.println("Total cost of project: $" + String.format("%.2f", totalCost));
+
     }
 
 }
