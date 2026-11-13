@@ -1,3 +1,4 @@
+//imports (add later)
 /**
  * A program that calculates and predicts size, cost, skein count, and more.
  *
@@ -7,10 +8,37 @@
  * @author Katie Stephenson
  * @version November 6, 2026
  */
+
 public class Main {
     public static void main(String[] args) {
         IO.println("Hello! Welcome to Cross Stitch Calculator!");
-        //testing branching
+        //branched code
+
+        //I added a boolean so I can add multiple entries on one run. The only way to end the program is to press "3" exactly to quit
+        boolean running = true;
+
+        while (running) {
+            IO.println("MENU:");
+            IO.println("Type 1 to Calculate Dimensions for a New project");
+            IO.println("Type 2 to Input Data for a Finished Project");
+            IO.println("Type 3 to Quit");
+            String userChoice = IO.readln();
+
+            switch (userChoice) {
+                case "1" -> calculateProject();
+                case "2" -> inputFinishedProject();
+                case "3" -> {
+                    running = false;
+                    IO.println("Goodbye!");
+                }
+                default -> IO.println("Invalid choice. Please enter 1, 2, or 3");
+            }
+
+        }
+    }
+
+
+    private static void calculateProject () {
         //Asking user to input the width of project in counts, and refusing until answer is in correct format
         int width = 0;
         while (true) {
@@ -92,10 +120,10 @@ public class Main {
 
         //calculates the number of skeins that will be used with the AIDA Count considered
         int totalSkeins = (int) Math.ceil((double) totalAreaStitches / skeinsForStitches);
-            //rounds up to nearest whole number, so you don't run out of thread while in the middle of the project
+        //rounds up to nearest whole number, so you don't run out of thread while in the middle of the project
 
         //estimating cost: skein cost.
-            //asks user if they want to input a specific cost of skeins, or if they want to use the set cost of 0.84 cents
+        //asks user if they want to input a specific cost of skeins, or if they want to use the set cost of 0.84 cents
         double costSkein = 0.84;
         IO.println("Do you have a specific price of thread that you want to input? (type yes if so)");
         String answerPrice = IO.readln();
@@ -117,7 +145,7 @@ public class Main {
         }
 
         //estimating cost: fabric
-            //preestablished, general cost because the cost of fabric varies widely across brands and stores
+        //preestablished, general cost because the cost of fabric varies widely across brands and stores
         double costOfFabric = 15.00;
 
         //calculating total cost
@@ -125,9 +153,10 @@ public class Main {
 
 
         /*adding buffer variable for the fabric around the borders of the actual design
-            buffer is used to know how big the finished product will be, if you have enough fabric, and the amount of
-            fabric necessary for the frame
-                if the user has no preference, the preestablished, general buffer of 5 inches will be used*/
+        buffer is used to know how big the finished product will be, if you have enough fabric, and the amount of
+        fabric necessary for the frame
+
+        if the user has no preference, the preestablished, general buffer of 5 inches will be used*/
         double bufferVariable = 5.0;
         IO.println("Do you want to change the buffer variable from 5 inches/side (type yes if so)");
         String answerBuffer = IO.readln();
@@ -154,4 +183,7 @@ public class Main {
         IO.println("Skeins of thread needed: " + totalSkeins);
         IO.println("Total estimated cost: $" + String.format("%.2f", totalCost));
     }
+    private static void inputFinishedProject () {
+    }
+//BufferedReader br = new BufferedReader(new FileReader("data.txt"));
 }
