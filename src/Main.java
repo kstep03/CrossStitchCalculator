@@ -1,4 +1,6 @@
-//imports (add later)
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 /**
  * A program that calculates and predicts size, cost, skein count, and more.
  *
@@ -11,33 +13,34 @@
 
 public class Main {
     public static void main(String[] args) {
-        IO.println("Hello! Welcome to Cross Stitch Calculator!");
-        //branched code
+            IO.println("Hello! Welcome to Cross Stitch Calculator!");
+            //branched code
 
-        //I added a boolean so I can add multiple entries on one run. The only way to end the program is to press "3" exactly to quit
-        boolean running = true;
+            //I added a boolean so I can add multiple entries on one run. The only way to end the program is to press "3" exactly to quit
+            boolean running = true;
 
-        while (running) {
-            IO.println("MENU:");
-            IO.println("Type 1 to Calculate Dimensions for a New project");
-            IO.println("Type 2 to Input Data for a Finished Project");
-            IO.println("Type 3 to Quit");
-            String userChoice = IO.readln();
+            //MENU options, dependent upon user input
+            while (running) {
+                IO.println("MENU:");
+                IO.println("Type 1 to Calculate Dimensions for a New project");
+                IO.println("Type 2 to Input Data for a Finished Project");
+                IO.println("Type 3 to Quit");
+                String userChoice = IO.readln();
 
-            switch (userChoice) {
-                case "1" -> calculateProject();
-                case "2" -> inputFinishedProject();
-                case "3" -> {
-                    running = false;
-                    IO.println("Goodbye!");
+                switch (userChoice) {
+                    case "1" -> calculateProject();
+                    case "2" -> inputFinishedProject();
+                    case "3" -> {
+                        running = false;
+                        IO.println("Goodbye!");
+                    }
+                    default -> IO.println("Invalid choice. Please enter 1, 2, or 3");
                 }
-                default -> IO.println("Invalid choice. Please enter 1, 2, or 3");
-            }
 
-        }
+            }
     }
 
-
+    //PROJECT CALCULATIONS (dimension, thread, etc.)
     private static void calculateProject () {
         //Asking user to input the width of project in counts, and refusing until answer is in correct format
         int width = 0;
@@ -183,7 +186,39 @@ public class Main {
         IO.println("Skeins of thread needed: " + totalSkeins);
         IO.println("Total estimated cost: $" + String.format("%.2f", totalCost));
     }
+    //WRITING FINISHED DATA TO FILE
     private static void inputFinishedProject () {
+        IO.println("Name of project: ");
+        String name = IO.readln();
+        if (name.isEmpty()) {
+            name = "Untitled";
+        }
+
+        IO.println("Time spent on project (in hours)");
+        double hours = Double.parseDouble(IO.readln());
+        IO.println("Enter width of project (in counts): ");
+        int countWidth = Integer.parseInt(IO.readln());
+        IO.println("Enter height of project (in counts): ");
+        int countHeight = Integer.parseInt(IO.readln());
+        IO.println("Enter AIDA count of fabric (e.g. 14): ");
+        int aidaCount = Integer.parseInt(IO.readln());
+        IO.println("How many skeins of thread did you actually use?");
+        int skeinsUsed = Integer.parseInt(IO.readln());
+        IO.println("What was the total cost of the project? ");
+        double actualCost = Double.parseDouble(IO.readln());
+
+        saveFinishedProject(name, hours, countWidth, countHeight, aidaCount, skeinsUsed, actualCost);
     }
-//BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+
+
+    private static void saveFinishedProject(String name, double hours, int countWidth, int countHeight, int aidaCount, int skeinsUsed, double actualCost) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("data.txt", true))) {
+            //true in bw appends to end instead of rewriting the file
+            bw.write(name + "," + hours + "," + countWidth + "," + countHeight + "," + aidaCount + "," + skeinsUsed + "," + actualCost);
+            bw.newLine();
+            IO.println("Saved to data.txt");
+        } catch (IOException e) {
+            IO.println("Could not save project: " + e.getMessage());
+        }
+    }
 }
