@@ -95,11 +95,12 @@ public class Main {
                 continue;
             }
 
-            if (!(aidaCount == 6 || aidaCount == 8 || aidaCount == 11 || aidaCount == 14 || aidaCount == 16 || (aidaCount >= 18 && aidaCount < 23))) {
-                IO.println("AIDA count " + aidaCount + " is not an accepted count of fabric. Choose a different AIDA count size.");
+            if (aidaCount <= 0) {
+                IO.println("Number has to be larger than 0");
                 continue;
             }
             break;
+
         }
 
         //calculates the weight and height of design in inches according to the count of fabric
@@ -143,6 +144,11 @@ public class Main {
                     continue;
                 }
 
+                if (costSkein < 0) {
+                    IO.println("Number cannot be negative");
+                    continue;
+                }
+
                 break;
             }
         }
@@ -175,6 +181,11 @@ public class Main {
                     IO.println("Not an amount.");
                     continue;
                 }
+                if (bufferVariable < 0) {
+                    IO.println("Number cannot be negative");
+                    continue;
+                }
+
 
                 break;
             }
@@ -188,24 +199,126 @@ public class Main {
     }
     //WRITING FINISHED DATA TO FILE
     private static void inputFinishedProject () {
-        IO.println("Name of project: ");
+        IO.println("Name of project (Do not put comma in name): ");
         String name = IO.readln();
         if (name.isEmpty()) {
             name = "Untitled";
         }
 
-        IO.println("Time spent on project (in hours)");
-        double hours = Double.parseDouble(IO.readln());
-        IO.println("Enter width of project (in counts): ");
-        int countWidth = Integer.parseInt(IO.readln());
-        IO.println("Enter height of project (in counts): ");
-        int countHeight = Integer.parseInt(IO.readln());
-        IO.println("Enter AIDA count of fabric (e.g. 14): ");
-        int aidaCount = Integer.parseInt(IO.readln());
-        IO.println("How many skeins of thread did you actually use?");
-        int skeinsUsed = Integer.parseInt(IO.readln());
-        IO.println("What was the total cost of the project? ");
-        double actualCost = Double.parseDouble(IO.readln());
+        double hours = 0;
+        while (true) {
+            IO.println("Time spent on project (in hours)");
+            String orighours = IO.readln();
+
+            try {
+                hours = Double.parseDouble(orighours);
+            } catch (NumberFormatException e) {
+                IO.println("Not an amount.");
+                continue;
+            }
+
+            if (hours < 0) {
+                IO.println("Number cannot be negative");
+                continue;
+            }
+
+            break;
+        }
+
+        int countWidth = 0;
+        while (true) {
+            IO.println("Enter width of project (in counts): ");
+            String origWidth = IO.readln();
+
+            try {
+                countWidth = Integer.parseInt(origWidth);
+            } catch (NumberFormatException e) {
+                IO.println("Not an amount.");
+                continue;
+            }
+            if (countWidth <= 0) {
+                IO.println("Number must be larger than 0");
+                continue;
+            }
+
+            break;
+        }
+
+        int countHeight = 0;
+        while (true) {
+            IO.println("Enter height of project (in counts): ");
+            String origHeight = IO.readln();
+
+            try {
+                countHeight = Integer.parseInt(origHeight);
+            } catch (NumberFormatException e) {
+                IO.println("Not an amount.");
+                continue;
+            }
+
+            if (countHeight <= 0) {
+                IO.println("Number must be larger than 0");
+                continue;
+            }
+
+            break;
+        }
+
+
+        int aidaCount = 0;
+        while (true) {
+            IO.println("Enter AIDA count of fabric (e.g. 14): ");
+            String origAidaCount = IO.readln();
+
+            try {
+                aidaCount = Integer.parseInt(origAidaCount);
+            } catch (NumberFormatException e) {
+                IO.println("Not an amount.");
+                continue;
+            }
+
+            if (aidaCount <= 0) {
+                IO.println("Number must be larger than 0");
+                continue;
+            }
+
+            break;
+        }
+
+        int skeinsUsed = 0;
+        while (true) {
+            IO.println("How many skeins of thread did you actually use?");
+            String origskeinsThread = IO.readln();
+
+            try {
+                skeinsUsed = Integer.parseInt(origskeinsThread);
+            } catch (NumberFormatException e) {
+                IO.println("Not an amount.");
+                continue;
+            }
+
+            if (skeinsUsed < 0) {
+                IO.println("Number cannot be negative");
+                continue;
+            }
+
+            break;
+        }
+
+        double actualCost = 0;
+        while (true) {
+            IO.println("What was the total cost of the project? ");
+            String origcost = IO.readln();
+
+            try {
+                actualCost = Double.parseDouble(origcost);
+            } catch (NumberFormatException e) {
+                IO.println("Not an amount.");
+                continue;
+            }
+
+            break;
+        }
 
         saveFinishedProject(name, hours, countWidth, countHeight, aidaCount, skeinsUsed, actualCost);
     }
