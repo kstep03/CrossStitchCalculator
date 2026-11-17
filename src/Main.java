@@ -1,6 +1,8 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
 /**
  * A program that calculates and predicts size, cost, skein count, and more.
  *
@@ -191,12 +193,62 @@ public class Main {
             }
         }
 
+
+
         //program outputs the proper information after the calculations
         IO.println("Finished project size: " + String.format("%.2f", widthInches) + " x " + String.format("%.2f", heightInches) + " inches");
         IO.println("Size of fabric needed: " + String.format("%.2f", (widthInches + (2 * bufferVariable))) + " x " + String.format("%.2f", (heightInches + (2 * bufferVariable))) + " inches");
         IO.println("Skeins of thread needed: " + totalSkeins);
         IO.println("Total estimated cost: $" + String.format("%.2f", totalCost));
+
+        //time estimation prediction using data from data.txt
+        double pastHours = 0;
+        double pastCountArea = 0;
+        int pastProjects = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+            while (true) {
+                String savedLine = br.readLine();
+                if (savedLine == null) {
+                    break;
+                }
+                String[] parts = savedLine.split(",");
+                if (parts.length != 7) {
+                    continue;
+                }
+
+                try {
+                    double savedHours = Double.parseDouble(parts[1]);
+                    int savedWidth = Integer.parseInt(parts[2]);
+                    int savedHeight = Integer.parseInt(parts[3]);
+                    int savedAida = Integer.parseInt(parts[4]);
+
+                    if (savedHours <= 0 || savedWidth <= 0 || savedHeight <= 0 || savedAida <= 0) {
+                        continue;
+                    }
+
+                    //size of the completed project in square inches
+                    pastCountArea += ((double) savedWidth / savedAida) * ((double) savedHeight / savedAida);
+                    pastHours += savedHours;
+                    pastProjects++;
+                } catch (NumberFormatException e) {
+                    //a line with bad numbers or values is not considered in time estimation
+                }
+            }
+        } catch (IOException e) {
+
+        }
+
+        if (pastProjects == 0) {
+            IO.println("No past projects saved to estimate time with.");
+        } else {
+            double hoursPerSquareInch = pastHours / pastCountArea;
+            double predictedHours = hoursPerSquareInch * widthInches * heightInches;
+            IO.println("Estimated time to complete: " + String.format("%.2f", predictedHours) + " hours (based on "
+                    + pastProjects + " past project(s))");
+        }
     }
+
     //WRITING FINISHED DATA TO FILE
     private static void inputFinishedProject () {
         IO.println("Name of project (Do not put comma in name): ");
