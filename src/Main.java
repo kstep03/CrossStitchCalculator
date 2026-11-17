@@ -10,7 +10,7 @@ import java.io.FileReader;
  * Purdue University -- CS19300 -- Fall 2026 -- Final Project -- Cross Stitch Calculator
  *
  * @author Katie Stephenson
- * @version November 6, 2026
+ * @version November 16, 2026
  */
 
 public class Main {
@@ -18,7 +18,8 @@ public class Main {
             IO.println("Hello! Welcome to Cross Stitch Calculator!");
             //branched code
 
-            //I added a boolean so I can add multiple entries on one run. The only way to end the program is to press "3" exactly to quit
+            //I added a boolean so I can add multiple entries on one run. The only way to end the program is to press
+                //"3" exactly to quit
             boolean running = true;
 
             //MENU options, dependent upon user input
@@ -84,7 +85,7 @@ public class Main {
             break;
         }
 
-        //Asking user the AIDA Count, and refusing until answer is one of the accepted counts
+        //Asking user the AIDA Count, and refusing until it is greater than 0
         int aidaCount = 0;
         while (true) {
             IO.println("Enter AIDA count of fabric (e.g. 14): ");
@@ -105,14 +106,14 @@ public class Main {
 
         }
 
-        //calculates the weight and height of design in inches according to the count of fabric
+        //calculates the width and height of design in inches according to the count of fabric
         double widthInches = (double) width / aidaCount;
         double heightInches = (double) height / aidaCount;
 
         //estimates how many stitches are possible with one skein of thread
         int totalAreaStitches = width * height;
         int skeinsForStitches = 0;
-        if (aidaCount > 18) {
+        if (aidaCount >= 18) {
             skeinsForStitches = 2300;
         } else if (aidaCount == 16) {
             skeinsForStitches = 2000;
@@ -126,10 +127,10 @@ public class Main {
 
         //calculates the number of skeins that will be used with the AIDA Count considered
         int totalSkeins = (int) Math.ceil((double) totalAreaStitches / skeinsForStitches);
-        //rounds up to nearest whole number, so you don't run out of thread while in the middle of the project
+            //rounds up to nearest whole number, so you don't run out of thread while in the middle of the project
 
         //estimating cost: skein cost.
-        //asks user if they want to input a specific cost of skeins, or if they want to use the set cost of 0.84 cents
+        //asks user if they want to input a specific cost of skeins, or if they want to use the set cost of $0.84
         double costSkein = 0.84;
         IO.println("Do you have a specific price of thread that you want to input? (type yes if so)");
         String answerPrice = IO.readln();
@@ -137,10 +138,10 @@ public class Main {
         if (lowerAnswerPrice.equals("yes")) {
             while (true) {
                 IO.println("Enter price per skein: ");
-                String origAidaCount = IO.readln();
+                String origPrice = IO.readln();
 
                 try {
-                    costSkein = Double.parseDouble(origAidaCount);
+                    costSkein = Double.parseDouble(origPrice);
                 } catch (NumberFormatException e) {
                     IO.println("Not an amount.");
                     continue;
@@ -201,7 +202,7 @@ public class Main {
         IO.println("Skeins of thread needed: " + totalSkeins);
         IO.println("Total estimated cost: $" + String.format("%.2f", totalCost));
 
-        //time estimation prediction using data from data.txt
+        //time estimation prediction for project using data from data.txt
         double pastHours = 0;
         double pastCountArea = 0;
         int pastProjects = 0;
@@ -251,12 +252,14 @@ public class Main {
 
     //WRITING FINISHED DATA TO FILE
     private static void inputFinishedProject () {
+        //index 0: project name
         IO.println("Name of project (Do not put comma in name): ");
         String name = IO.readln();
         if (name.isEmpty()) {
             name = "Untitled";
         }
 
+        //index 1: time spent on project
         double hours = 0;
         while (true) {
             IO.println("Time spent on project (in hours)");
@@ -269,14 +272,15 @@ public class Main {
                 continue;
             }
 
-            if (hours < 0) {
-                IO.println("Number cannot be negative");
+            if (hours <= 0) {
+                IO.println("Number must be greater than 0");
                 continue;
             }
 
             break;
         }
 
+        //index 2: width, in counts, of project
         int countWidth = 0;
         while (true) {
             IO.println("Enter width of project (in counts): ");
@@ -296,6 +300,7 @@ public class Main {
             break;
         }
 
+        //index 3: height, in counts, of project
         int countHeight = 0;
         while (true) {
             IO.println("Enter height of project (in counts): ");
@@ -317,6 +322,7 @@ public class Main {
         }
 
 
+        //index 4: aida count
         int aidaCount = 0;
         while (true) {
             IO.println("Enter AIDA count of fabric (e.g. 14): ");
@@ -337,6 +343,7 @@ public class Main {
             break;
         }
 
+        // index 5: number of skeins used
         int skeinsUsed = 0;
         while (true) {
             IO.println("How many skeins of thread did you actually use?");
@@ -357,6 +364,7 @@ public class Main {
             break;
         }
 
+        //index 6: total cost of project
         double actualCost = 0;
         while (true) {
             IO.println("What was the total cost of the project? ");
@@ -369,13 +377,19 @@ public class Main {
                 continue;
             }
 
+            if (actualCost < 0) {
+                IO.println("Number cannot be negative");
+                continue;
+            }
+
             break;
         }
 
+        //saving finished project for the saveFinishedProject method
         saveFinishedProject(name, hours, countWidth, countHeight, aidaCount, skeinsUsed, actualCost);
     }
 
-
+    //OUTPUTS USER DATA AND INPUT TO data.txt
     private static void saveFinishedProject(String name, double hours, int countWidth, int countHeight, int aidaCount, int skeinsUsed, double actualCost) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("data.txt", true))) {
             //true in bw appends to end instead of rewriting the file
