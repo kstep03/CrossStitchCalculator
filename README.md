@@ -63,7 +63,7 @@ Features you haven't built yet but plan to (pull these from your
 - [X] Able to run program multiple times for different patterns
 - [X] Option to ouput a completed project to data.txt to be analyzed for total estimated time for future projects.
 
-## Video Link
+## Demo
 
 https://youtu.be/lR-9r4qXAR8
 
