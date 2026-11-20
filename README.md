@@ -40,14 +40,17 @@ git clone https://github.com/YOUR-USERNAME/CrossStitchCalculator.git
 - Type your answer and press Enter for each prompt. Example of the run console listed below.
 
 ```bash
-Enter width of project (in counts): 120
-Enter height of project (in counts): 150
-Enter AIDA count of fabric: 14
+Enter width of project (in counts): 20
+Enter height of project (in counts): 39
+Enter AIDA count of fabric (e.g. 14): 49
+Do you have a specific price of thread that you want to input? (type yes if so) no
+Do you want to change the buffer variable from 5 inches/side (type yes if so) no
 ...
-Your finished project size is:  8.62 x 10.71 inches
-Total estimated cost of project: $4.50
-Number of skeins of thread needed: 2
-Your finished fabric size needed is: 13.62 x 15.71 inches 
+Finished project size: 0.41 x 0.80 inches
+Size of fabric needed: 10.41 x 10.80 inches
+Skeins of thread needed: 1
+Total estimated cost: $15.84
+Estimated time to complete: 0.21 hours (based on 4 past project(s))
 ```
 
 ## Roadmap
@@ -55,9 +58,10 @@ Your finished fabric size needed is: 13.62 x 15.71 inches
 Features you haven't built yet but plan to (pull these from your
 "Schedule" quadrant in the Eisenhower Matrix).
 
-- [ ] Estimated Time for Completion based on my previous project data read from a seperate file
+- [X] Estimated Time for Completion based on my previous project data read from a seperate file
 - [ ] Adding different numbers of thread for stitches, and implementing the variable into the formulas
-- [ ] Able to run program multiple times for different patterns
+- [X] Able to run program multiple times for different patterns
+- [X] Option to ouput a completed project to data.txt to be analyzed for total estimated time for future projects.
 
 ## Author
 
